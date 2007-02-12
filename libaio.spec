@@ -1,5 +1,5 @@
 Summary:	Linux-native asynchronous I/O access library
-Summary(pl):	Biblioteka natywnego dla Linuksa asynchronicznego dostÍpu do wej∂cia/wyj∂cia
+Summary(pl.UTF-8):   Biblioteka natywnego dla Linuksa asynchronicznego dostƒôpu do wej≈õcia/wyj≈õcia
 Name:		libaio
 Version:	0.3.104
 Release:	1
@@ -20,38 +20,38 @@ async I/O. The POSIX async I/O facility requires this library in order
 to provide kernel-accelerated async I/O capabilities, as do
 applications which require the Linux-native async I/O API.
 
-%description -l pl
-Natywna dla Linuksa obs≥uga asynchronicznego wej∂cia/wyj∂cia ("async
-I/O" lub "aio") ma bogatsze API i zestaw moøliwo∂ci niø proste
-asynchroniczne wej∂cie/wyj∂cie zgodne z POSIX. Ta biblioteka - libaio
-- udostÍpnia natywne Linuksowe API dla asynchronicznego we/wy. Zgodne
-z POSIX asynchroniczne we/wy wymaga tej biblioteki do udostÍpnienia
-przyspieszanych przez j±dro moøliwo∂ci asynchronicznego we/wy,
-podobnie jak aplikacje wymagaj±ce natywnego dla Linuksa API
+%description -l pl.UTF-8
+Natywna dla Linuksa obs≈Çuga asynchronicznego wej≈õcia/wyj≈õcia ("async
+I/O" lub "aio") ma bogatsze API i zestaw mo≈ºliwo≈õci ni≈º proste
+asynchroniczne wej≈õcie/wyj≈õcie zgodne z POSIX. Ta biblioteka - libaio
+- udostƒôpnia natywne Linuksowe API dla asynchronicznego we/wy. Zgodne
+z POSIX asynchroniczne we/wy wymaga tej biblioteki do udostƒôpnienia
+przyspieszanych przez jƒÖdro mo≈ºliwo≈õci asynchronicznego we/wy,
+podobnie jak aplikacje wymagajƒÖce natywnego dla Linuksa API
 asynchronicznego we/wy.
 
 %package devel
 Summary:	Header files for libaio library
-Summary(pl):	Pliki nag≥Ûwkowe biblioteki libaio
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe biblioteki libaio
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Header files for libaio library.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe biblioteki libaio.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe biblioteki libaio.
 
 %package static
 Summary:	Static libaio library
-Summary(pl):	Statyczna biblioteka libaio
+Summary(pl.UTF-8):   Statyczna biblioteka libaio
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static libaio library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka libaio.
 
 %prep
