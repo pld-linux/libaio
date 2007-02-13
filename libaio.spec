@@ -1,5 +1,5 @@
 Summary:	Linux-native asynchronous I/O access library
-Summary(pl.UTF-8):   Biblioteka natywnego dla Linuksa asynchronicznego dostępu do wejścia/wyjścia
+Summary(pl.UTF-8):	Biblioteka natywnego dla Linuksa asynchronicznego dostępu do wejścia/wyjścia
 Name:		libaio
 Version:	0.3.104
 Release:	1
@@ -32,7 +32,7 @@ asynchronicznego we/wy.
 
 %package devel
 Summary:	Header files for libaio library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki libaio
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libaio
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -44,7 +44,7 @@ Pliki nagłówkowe biblioteki libaio.
 
 %package static
 Summary:	Static libaio library
-Summary(pl.UTF-8):   Statyczna biblioteka libaio
+Summary(pl.UTF-8):	Statyczna biblioteka libaio
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
