@@ -70,11 +70,13 @@ rm -rf $RPM_BUILD_ROOT
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
 	libdir=$RPM_BUILD_ROOT%{_libdir}
 
-install -d $RPM_BUILD_ROOT%{_mandir}/man{2,3}
-install man/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
-for f in man/*.1 ; do
-	install $f $RPM_BUILD_ROOT%{_mandir}/man2/`basename $f .1`.2
-done
+# omit some manuals:
+# man2/io_* already included in man-pages
+# some man3/aio_* already included in glibc-devel-doc (from man-pages)
+install -d $RPM_BUILD_ROOT%{_mandir}/man3
+install man/aio{,_cancel64,_error64,_fsync64,_init,_read64,_return64,_suspend64,_write64}.3 $RPM_BUILD_ROOT%{_mandir}/man3
+install man/io*.3 $RPM_BUILD_ROOT%{_mandir}/man3
+install man/lio*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -91,7 +93,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libaio.so
 %{_includedir}/libaio.h
-%{_mandir}/man2/io_*.2*
 %{_mandir}/man3/aio*.3*
 %{_mandir}/man3/io*.3*
 %{_mandir}/man3/lio_*.3*
