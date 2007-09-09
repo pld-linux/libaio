@@ -1,13 +1,14 @@
 Summary:	Linux-native asynchronous I/O access library
 Summary(pl.UTF-8):	Biblioteka natywnego dla Linuksa asynchronicznego dostępu do wejścia/wyjścia
 Name:		libaio
-Version:	0.3.104
+Version:	0.3.106
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 # http://download.fedora.redhat.com/pub/fedora/linux/core/development/SRPMS/
-Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	2a4a17ed8f95d08b52cc72a41a6f5c60
+# some's distro repository - md5 verified with fedora package
+Source0:	http://ftp.nluug.nl/pub/os/Linux/distr/pardusrepo/sources/%{name}-%{version}.tar.gz
+# Source0-md5:	9480e31cce6506091080d59211089bd4
 # syscall*.h implemented for:
 ExclusiveArch:	%{ix86} %{x8664} alpha ia64 ppc ppc64 s390 s390x
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -91,7 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libaio.so
 %{_includedir}/libaio.h
 %{_mandir}/man2/io_*.2*
-%{_mandir}/man3/*io*.3*
+%{_mandir}/man3/aio*.3*
+%{_mandir}/man3/io*.3*
+%{_mandir}/man3/lio_*.3*
 
 %files static
 %defattr(644,root,root,755)
