@@ -2,7 +2,7 @@ Summary:	Linux-native asynchronous I/O access library
 Summary(pl.UTF-8):	Biblioteka natywnego dla Linuksa asynchronicznego dostępu do wejścia/wyjścia
 Name:		libaio
 Version:	0.3.106
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Libraries
 # http://download.fedora.redhat.com/pub/fedora/linux/core/development/SRPMS/
@@ -65,6 +65,7 @@ Statyczna biblioteka libaio.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT/%{_lib}
 
 %{__make} install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
@@ -78,6 +79,11 @@ install man/aio{,_cancel64,_error64,_fsync64,_init,_read64,_return64,_suspend64,
 install man/io*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 install man/lio*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
+# move to /%{_lib}, for multipath-tools
+SONAME=$(basename $RPM_BUILD_ROOT%{_libdir}/libaio.so.*.*)
+ln -sf /%{_lib}/${SONAME} $RPM_BUILD_ROOT%{_libdir}/libaio.so
+mv -f $RPM_BUILD_ROOT%{_libdir}/libaio.so.*.* $RPM_BUILD_ROOT/%{_lib}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -87,7 +93,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog TODO
-%attr(755,root,root) %{_libdir}/libaio.so.*.*.*
+%attr(755,root,root) /%{_lib}/libaio.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
