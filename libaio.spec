@@ -1,16 +1,14 @@
 Summary:	Linux-native asynchronous I/O access library
 Summary(pl.UTF-8):	Biblioteka natywnego dla Linuksa asynchronicznego dostępu do wejścia/wyjścia
 Name:		libaio
-Version:	0.3.106
-Release:	2
+Version:	0.3.107
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
-# http://download.fedora.redhat.com/pub/fedora/linux/core/development/SRPMS/
-# some's distro repository - md5 verified with fedora package
-Source0:	http://ftp.nluug.nl/pub/os/Linux/distr/pardusrepo/sources/%{name}-%{version}.tar.gz
+# http://download.fedoraproject.org/pub/fedora/linux/development/source/SRPMS/libaio-0.3.107-2.src.rpm
+Source0:	%{name}-%{version}.tar.gz
+Patch0:		%{name}-arches.patch
 # Source0-md5:	9480e31cce6506091080d59211089bd4
-# syscall*.h implemented for:
-ExclusiveArch:	%{ix86} %{x8664} alpha ia64 ppc ppc64 s390 s390x
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -57,6 +55,7 @@ Statyczna biblioteka libaio.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__make} \
@@ -80,9 +79,8 @@ install man/io*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 install man/lio*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 # move to /%{_lib}, for multipath-tools
-SONAME=$(basename $RPM_BUILD_ROOT%{_libdir}/libaio.so.*.*)
-ln -sf /%{_lib}/${SONAME} $RPM_BUILD_ROOT%{_libdir}/libaio.so
-mv -f $RPM_BUILD_ROOT%{_libdir}/libaio.so.*.* $RPM_BUILD_ROOT/%{_lib}
+mv -f $RPM_BUILD_ROOT%{_libdir}/libaio.so.* $RPM_BUILD_ROOT/%{_lib}
+ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libaio.so.*.*) $RPM_BUILD_ROOT%{_libdir}/libaio.so
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -94,6 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc ChangeLog TODO
 %attr(755,root,root) /%{_lib}/libaio.so.*.*.*
+%attr(755,root,root) %ghost /%{_lib}/libaio.so.1
 
 %files devel
 %defattr(644,root,root,755)
