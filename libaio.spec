@@ -7,8 +7,8 @@ License:	LGPL v2+
 Group:		Libraries
 # http://download.fedoraproject.org/pub/fedora/linux/development/source/SRPMS/libaio-0.3.107-2.src.rpm
 Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	db32c19c61ca937bcb1ba48da9180682
 Patch0:		%{name}-arches.patch
-# Source0-md5:	9480e31cce6506091080d59211089bd4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
