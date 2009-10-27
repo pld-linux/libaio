@@ -9,25 +9,29 @@ Group:		Libraries
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	db32c19c61ca937bcb1ba48da9180682
 Patch0:		%{name}-arches.patch
+Patch1:		libaio-DESTDIR.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 The Linux-native asynchronous I/O facility ("async I/O", or "aio") has
 a richer API and capability set than the simple POSIX async I/O
-facility. This library, libaio, provides the Linux-native API for
-async I/O. The POSIX async I/O facility requires this library in order
-to provide kernel-accelerated async I/O capabilities, as do
-applications which require the Linux-native async I/O API.
+facility.
+
+This library, libaio, provides the Linux-native API for async I/O. The
+POSIX async I/O facility requires this library in order to provide
+kernel-accelerated async I/O capabilities, as do applications which
+require the Linux-native async I/O API.
 
 %description -l pl.UTF-8
 Natywna dla Linuksa obsługa asynchronicznego wejścia/wyjścia ("async
 I/O" lub "aio") ma bogatsze API i zestaw możliwości niż proste
-asynchroniczne wejście/wyjście zgodne z POSIX. Ta biblioteka - libaio
-- udostępnia natywne Linuksowe API dla asynchronicznego we/wy. Zgodne
-z POSIX asynchroniczne we/wy wymaga tej biblioteki do udostępnienia
-przyspieszanych przez jądro możliwości asynchronicznego we/wy,
-podobnie jak aplikacje wymagające natywnego dla Linuksa API
-asynchronicznego we/wy.
+asynchroniczne wejście/wyjście zgodne z POSIX.
+
+Ta biblioteka - libaio - udostępnia natywne Linuksowe API dla
+asynchronicznego we/wy. Zgodne z POSIX asynchroniczne we/wy wymaga tej
+biblioteki do udostępnienia przyspieszanych przez jądro możliwości
+asynchronicznego we/wy, podobnie jak aplikacje wymagające natywnego
+dla Linuksa API asynchronicznego we/wy.
 
 %package devel
 Summary:	Header files for libaio library
@@ -56,6 +60,7 @@ Statyczna biblioteka libaio.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__make} \
@@ -67,16 +72,15 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{_lib}
 
 %{__make} install \
-	prefix=$RPM_BUILD_ROOT%{_prefix} \
-	libdir=$RPM_BUILD_ROOT%{_libdir}
+	DESTDIR=$RPM_BUILD_ROOT
 
 # omit some manuals:
 # man2/io_* already included in man-pages
 # some man3/aio_* already included in glibc-devel-doc (from man-pages)
 install -d $RPM_BUILD_ROOT%{_mandir}/man3
-install man/aio{,_cancel64,_error64,_fsync64,_init,_read64,_return64,_suspend64,_write64}.3 $RPM_BUILD_ROOT%{_mandir}/man3
-install man/io*.3 $RPM_BUILD_ROOT%{_mandir}/man3
-install man/lio*.3 $RPM_BUILD_ROOT%{_mandir}/man3
+cp -a man/aio{,_cancel64,_error64,_fsync64,_init,_read64,_return64,_suspend64,_write64}.3 $RPM_BUILD_ROOT%{_mandir}/man3
+cp -a man/io*.3 $RPM_BUILD_ROOT%{_mandir}/man3
+cp -a man/lio*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 # move to /%{_lib}, for multipath-tools
 mv -f $RPM_BUILD_ROOT%{_libdir}/libaio.so.* $RPM_BUILD_ROOT/%{_lib}
