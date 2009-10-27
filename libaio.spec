@@ -9,7 +9,7 @@ Group:		Libraries
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	db32c19c61ca937bcb1ba48da9180682
 Patch0:		%{name}-arches.patch
-Patch1:		libaio-DESTDIR.patch
+Patch1:		%{name}-DESTDIR.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -72,6 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{_lib}
 
 %{__make} install \
+	libdir=/%{_lib} \
+	usrlibdir=%{_libdir} \
 	DESTDIR=$RPM_BUILD_ROOT
 
 # omit some manuals:
@@ -81,10 +83,6 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man3
 cp -a man/aio{,_cancel64,_error64,_fsync64,_init,_read64,_return64,_suspend64,_write64}.3 $RPM_BUILD_ROOT%{_mandir}/man3
 cp -a man/io*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 cp -a man/lio*.3 $RPM_BUILD_ROOT%{_mandir}/man3
-
-# move to /%{_lib}, for multipath-tools
-mv -f $RPM_BUILD_ROOT%{_libdir}/libaio.so.* $RPM_BUILD_ROOT/%{_lib}
-ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libaio.so.*.*) $RPM_BUILD_ROOT%{_libdir}/libaio.so
 
 %clean
 rm -rf $RPM_BUILD_ROOT
