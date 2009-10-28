@@ -2,7 +2,7 @@ Summary:	Linux-native asynchronous I/O access library
 Summary(pl.UTF-8):	Biblioteka natywnego dla Linuksa asynchronicznego dostępu do wejścia/wyjścia
 Name:		libaio
 Version:	0.3.107
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Libraries
 # http://download.fedoraproject.org/pub/fedora/linux/development/source/SRPMS/libaio-0.3.107-2.src.rpm
