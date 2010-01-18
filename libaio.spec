@@ -1,3 +1,4 @@
+%bcond_without	tests
 Summary:	Linux-native asynchronous I/O access library
 Summary(pl.UTF-8):	Biblioteka natywnego dla Linuksa asynchronicznego dostępu do wejścia/wyjścia
 Name:		libaio
@@ -60,13 +61,15 @@ Statyczna biblioteka libaio.
 %setup -q -T -c
 rpm2cpio %{SOURCE0} | cpio -i -d || exit 1
 tar xzf *.tar.gz || exit 1
-mv %{name}-%{version}/* .
+mv %{name}-%{version}/{.version,*} .
 %patch0 -p1
 
 %build
 %{__make} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcppflags} %{rpmcflags} -fomit-frame-pointer -fPIC -Wall -I. -nostdlib -nostartfiles"
+
+%{?with_tests:%{__make} CC="%{__cc}" partcheck}
 
 %install
 rm -rf $RPM_BUILD_ROOT
