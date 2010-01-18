@@ -6,8 +6,8 @@ Version:	0.3.109
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	http://ftp.icm.edu.pl/pub/Linux/fedora/linux/development/source/SRPMS/libaio-0.3.109-1.fc13.src.rpm
-# Source0-md5:	55536f014c6af3d1a2f9f249f3130241
+Source0:	ftp://ftp.kernel.org/pub/linux/libs/aio/%{name}-%{version}.tar.gz
+# Source0-md5:	435a5b16ca6198eaf01155263d855756
 Patch0:		%{name}-DESTDIR.patch
 BuildRequires:	rpm-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -58,10 +58,7 @@ Static libaio library.
 Statyczna biblioteka libaio.
 
 %prep
-%setup -q -T -c
-rpm2cpio %{SOURCE0} | cpio -i -d || exit 1
-tar xzf *.tar.gz || exit 1
-mv %{name}-%{version}/{.version,*} .
+%setup -q
 %patch0 -p1
 
 %build
