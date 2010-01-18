@@ -1,15 +1,14 @@
 Summary:	Linux-native asynchronous I/O access library
 Summary(pl.UTF-8):	Biblioteka natywnego dla Linuksa asynchronicznego dostępu do wejścia/wyjścia
 Name:		libaio
-Version:	0.3.107
-Release:	2
+Version:	0.3.109
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
-# http://download.fedoraproject.org/pub/fedora/linux/development/source/SRPMS/libaio-0.3.107-2.src.rpm
-Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	db32c19c61ca937bcb1ba48da9180682
-Patch0:		%{name}-arches.patch
-Patch1:		%{name}-DESTDIR.patch
+Source0:	http://ftp.icm.edu.pl/pub/Linux/fedora/linux/development/source/SRPMS/libaio-0.3.109-1.fc13.src.rpm
+# Source0-md5:	55536f014c6af3d1a2f9f249f3130241
+Patch0:		%{name}-DESTDIR.patch
+BuildRequires:	rpm-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -58,14 +57,16 @@ Static libaio library.
 Statyczna biblioteka libaio.
 
 %prep
-%setup -q
+%setup -q -T -c
+rpm2cpio %{SOURCE0} | cpio -i -d || exit 1
+tar xzf *.tar.gz || exit 1
+mv %{name}-%{version}/* .
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__make} \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -fomit-frame-pointer -fPIC -Wall -I. -nostdlib -nostartfiles"
+	CFLAGS="%{rpmcppflags} %{rpmcflags} -fomit-frame-pointer -fPIC -Wall -I. -nostdlib -nostartfiles"
 
 %install
 rm -rf $RPM_BUILD_ROOT
