@@ -23,7 +23,7 @@ diff -up libaio-0.3.107/src/Makefile.orig libaio-0.3.107/src/Makefile
 +	install -D -m 644 libaio.h $(DESTDIR)$(includedir)/libaio.h
 +	install -D -m 644 libaio.a $(DESTDIR)$(usrlibdir)/libaio.a
 +	install -D -m 755 $(libname) $(DESTDIR)$(libdir)/$(libname)
-+	ln -sf $(libdir)/$(libname) $(DESTDIR)$(libdir)/$(soname)
++	ln -sf $(libname) $(DESTDIR)$(libdir)/$(soname)
 +	ln -sf $(libdir)/$(libname) $(DESTDIR)$(usrlibdir)/libaio.so
  
  $(libaio_objs): libaio.h

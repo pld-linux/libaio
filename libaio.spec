@@ -1,4 +1,7 @@
-%bcond_without	tests
+#
+# Conditional build:
+%bcond_without	tests	# don't perform make partcheck
+#
 Summary:	Linux-native asynchronous I/O access library
 Summary(pl.UTF-8):	Biblioteka natywnego dla Linuksa asynchronicznego dostępu do wejścia/wyjścia
 Name:		libaio
@@ -9,7 +12,6 @@ Group:		Libraries
 Source0:	ftp://ftp.kernel.org/pub/linux/libs/aio/%{name}-%{version}.tar.gz
 # Source0-md5:	435a5b16ca6198eaf01155263d855756
 Patch0:		%{name}-DESTDIR.patch
-BuildRequires:	rpm-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
