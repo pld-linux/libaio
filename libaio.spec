@@ -13,6 +13,7 @@ Source0:	ftp://ftp.kernel.org/pub/linux/libs/aio/%{name}-%{version}.tar.gz
 # Source0-md5:	435a5b16ca6198eaf01155263d855756
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-Werror.patch
+Patch2:		x32.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -64,6 +65,7 @@ Statyczna biblioteka libaio.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__make} \
