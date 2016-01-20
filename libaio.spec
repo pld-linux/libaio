@@ -5,16 +5,19 @@
 Summary:	Linux-native asynchronous I/O access library
 Summary(pl.UTF-8):	Biblioteka natywnego dla Linuksa asynchronicznego dostępu do wejścia/wyjścia
 Name:		libaio
-Version:	0.3.109
-Release:	2
+Version:	0.3.110
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	ftp://ftp.kernel.org/pub/linux/libs/aio/%{name}-%{version}.tar.gz
-# Source0-md5:	435a5b16ca6198eaf01155263d855756
+Source0:	https://fedorahosted.org/releases/l/i/libaio/%{name}-%{version}.tar.gz
+# Source0-md5:	2a35602e43778383e2f4907a4ca39ab8
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-Werror.patch
 Patch2:		x32.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# SSP is incompatible with -nostdlib -nostartfiles
+%define		filterout_c	-Wp,-D_FORTIFY_SOURCE=2 -fstack-protector.*
 
 %description
 The Linux-native asynchronous I/O facility ("async I/O", or "aio") has
@@ -83,13 +86,8 @@ install -d $RPM_BUILD_ROOT/%{_lib}
 	usrlibdir=%{_libdir} \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# omit some manuals:
-# man2/io_* already included in man-pages
-# some man3/aio_* already included in glibc-devel-doc (from man-pages)
 install -d $RPM_BUILD_ROOT%{_mandir}/man3
-cp -a man/aio{,_cancel64,_error64,_fsync64,_init,_read64,_return64,_suspend64,_write64}.3 $RPM_BUILD_ROOT%{_mandir}/man3
 cp -a man/io*.3 $RPM_BUILD_ROOT%{_mandir}/man3
-cp -a man/lio*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -107,9 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libaio.so
 %{_includedir}/libaio.h
-%{_mandir}/man3/aio*.3*
 %{_mandir}/man3/io*.3*
-%{_mandir}/man3/lio_*.3*
 
 %files static
 %defattr(644,root,root,755)
