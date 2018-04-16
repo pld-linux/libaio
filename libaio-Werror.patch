@@ -1,11 +1,11 @@
---- libaio-0.3.110/harness/Makefile.orig	2016-01-20 17:15:44.249480226 +0100
-+++ libaio-0.3.110/harness/Makefile	2016-01-20 17:16:08.229479219 +0100
+--- libaio-0.3.111/harness/Makefile.orig	2018-04-15 21:10:25.695931798 +0200
++++ libaio-0.3.111/harness/Makefile	2018-04-15 21:24:00.559255827 +0200
 @@ -6,7 +6,7 @@
  HARNESS_SRCS:=main.c
  # io_queue.c
  
--CFLAGS+=-Wall -Werror -I../src -g -O
-+CFLAGS+=-Wall -I../src -g -O
+-CFLAGS+=-Wall -Werror -I../src -g -O2 -DPAGE_SIZE=$(shell getconf PAGESIZE)
++CFLAGS+=-Wall -I../src -DPAGE_SIZE=$(shell getconf PAGESIZE)
  #-lpthread -lrt
  
  all: $(PROGS)

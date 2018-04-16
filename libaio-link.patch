@@ -1,0 +1,13 @@
+--- libaio-0.3.111/src/Makefile.orig	2018-04-16 20:52:01.924957883 +0200
++++ libaio-0.3.111/src/Makefile	2018-04-16 20:52:10.001624445 +0200
+@@ -3,8 +3,8 @@
+ libdir=/usr/lib
+ usrlibdir=/usr/lib
+ 
+-CFLAGS ?= -g -fomit-frame-pointer -O2
+-CFLAGS += -nostdlib -nostartfiles -Wall -I. -fPIC
++CFLAGS ?= -fomit-frame-pointer
++CFLAGS += -Wall -I. -fPIC
+ SO_CFLAGS=-shared $(CFLAGS)
+ L_CFLAGS=$(CFLAGS)
+ LINK_FLAGS=

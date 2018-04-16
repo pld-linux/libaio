@@ -5,19 +5,21 @@
 Summary:	Linux-native asynchronous I/O access library
 Summary(pl.UTF-8):	Biblioteka natywnego dla Linuksa asynchronicznego dostępu do wejścia/wyjścia
 Name:		libaio
-Version:	0.3.110
+Version:	0.3.111
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	https://fedorahosted.org/releases/l/i/libaio/%{name}-%{version}.tar.gz
-# Source0-md5:	2a35602e43778383e2f4907a4ca39ab8
+Source0:	http://releases.pagure.org/libaio/%{name}-%{version}.tar.gz
+# Source0-md5:	abb8f46d64b9bd3d0c6097e3a36639be
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-Werror.patch
 Patch2:		x32.patch
+Patch3:		%{name}-link.patch
+URL:		https://pagure.io/libaio
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # SSP is incompatible with -nostdlib -nostartfiles
-%define		filterout_c	-Wp,-D_FORTIFY_SOURCE=2 -fstack-protector.*
+#define		filterout_c	-Wp,-D_FORTIFY_SOURCE=2 -fstack-protector.*
 
 %description
 The Linux-native asynchronous I/O facility ("async I/O", or "aio") has
@@ -69,11 +71,12 @@ Statyczna biblioteka libaio.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__make} \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcppflags} %{rpmcflags} -fomit-frame-pointer -fPIC -Wall -I. -nostdlib -nostartfiles"
+	CFLAGS="%{rpmcppflags} %{rpmcflags} -fomit-frame-pointer -fPIC -Wall -I."
 
 %{?with_tests:%{__make} CC="%{__cc}" partcheck}
 
