@@ -18,9 +18,6 @@ Patch3:		%{name}-link.patch
 URL:		https://pagure.io/libaio
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-# SSP is incompatible with -nostdlib -nostartfiles
-#define		filterout_c	-Wp,-D_FORTIFY_SOURCE=2 -fstack-protector.*
-
 %description
 The Linux-native asynchronous I/O facility ("async I/O", or "aio") has
 a richer API and capability set than the simple POSIX async I/O
