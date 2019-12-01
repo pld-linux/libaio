@@ -5,18 +5,19 @@
 Summary:	Linux-native asynchronous I/O access library
 Summary(pl.UTF-8):	Biblioteka natywnego dla Linuksa asynchronicznego dostępu do wejścia/wyjścia
 Name:		libaio
-Version:	0.3.111
+Version:	0.3.112
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	http://releases.pagure.org/libaio/%{name}-%{version}.tar.gz
-# Source0-md5:	abb8f46d64b9bd3d0c6097e3a36639be
+Source0:	https://releases.pagure.org/libaio/%{name}-%{version}.tar.gz
+# Source0-md5:	1ba264947d05bd8e0f9dc9a9ed80cf3e
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-Werror.patch
 Patch2:		x32.patch
-Patch3:		%{name}-link.patch
 URL:		https://pagure.io/libaio
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		specflags	-fomit-frame-pointer
 
 %description
 The Linux-native asynchronous I/O facility ("async I/O", or "aio") has
@@ -68,12 +69,11 @@ Statyczna biblioteka libaio.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
+CFLAGS="%{rpmcppflags} %{rpmcflags}" \
 %{__make} \
-	CC="%{__cc}" \
-	CFLAGS="%{rpmcppflags} %{rpmcflags} -fomit-frame-pointer -fPIC -Wall -I."
+	CC="%{__cc}"
 
 %{?with_tests:%{__make} CC="%{__cc}" partcheck}
 

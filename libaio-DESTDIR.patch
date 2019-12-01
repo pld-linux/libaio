@@ -1,6 +1,5 @@
-diff -up libaio-0.3.107/src/Makefile.orig libaio-0.3.107/src/Makefile
---- libaio-0.3.107/src/Makefile.orig	2009-01-20 10:07:31.520105235 -0500
-+++ libaio-0.3.107/src/Makefile	2009-01-20 10:08:51.199104930 -0500
+--- libaio-0.3.112/src/Makefile.orig	2018-10-22 21:59:34.000000000 +0200
++++ libaio-0.3.112/src/Makefile	2019-12-01 11:58:26.473877873 +0100
 @@ -1,6 +1,7 @@
  prefix=/usr
 -includedir=$(prefix)/include
@@ -9,22 +8,34 @@ diff -up libaio-0.3.107/src/Makefile.orig libaio-0.3.107/src/Makefile
 +libdir=/usr/lib
 +usrlibdir=/usr/lib
  
- ARCH := $(shell uname -m | sed -e s/i.86/i386/)
- CFLAGS := -nostdlib -nostartfiles -Wall -I. -g -fomit-frame-pointer -O2 -fPIC
-@@ -51,11 +52,11 @@ $(libname): $(libaio_sobjs) libaio.map
+ CFLAGS ?= -g -fomit-frame-pointer -O2
+ CFLAGS += -Wall -I. -fPIC
+@@ -58,12 +59,12 @@
  	$(CC) $(SO_CFLAGS) -Wl,--version-script=libaio.map -Wl,-soname=$(soname) -o $@ $(libaio_sobjs) $(LINK_FLAGS)
  
  install: $(all_targets)
 -	install -D -m 644 libaio.h $(includedir)/libaio.h
 -	install -D -m 644 libaio.a $(libdir)/libaio.a
++	install -D -m 644 libaio.h $(DESTDIR)$(includedir)/libaio.h
++	install -D -m 644 libaio.a $(DESTDIR)$(usrlibdir)/libaio.a
+ ifeq ($(ENABLE_SHARED),1)
 -	install -D -m 755 $(libname) $(libdir)/$(libname)
 -	ln -sf $(libname) $(libdir)/$(soname)
 -	ln -sf $(libname) $(libdir)/libaio.so
-+	install -D -m 644 libaio.h $(DESTDIR)$(includedir)/libaio.h
-+	install -D -m 644 libaio.a $(DESTDIR)$(usrlibdir)/libaio.a
 +	install -D -m 755 $(libname) $(DESTDIR)$(libdir)/$(libname)
 +	ln -sf $(libname) $(DESTDIR)$(libdir)/$(soname)
 +	ln -sf $(libdir)/$(libname) $(DESTDIR)$(usrlibdir)/libaio.so
+ endif
  
  $(libaio_objs): libaio.h
+--- libaio-0.3.112/Makefile.orig	2018-10-22 21:59:34.000000000 +0200
++++ libaio-0.3.112/Makefile	2019-12-01 12:06:04.668062288 +0100
+@@ -14,7 +14,7 @@
+ 	@$(MAKE) -C src
  
+ install:
+-	@$(MAKE) -C src install prefix=$(DESTDIR)$(prefix) includedir=$(DESTDIR)$(includedir) libdir=$(DESTDIR)$(libdir)
++	@$(MAKE) -C src install prefix=$(prefix) includedir=$(includedir) libdir=$(libdir)
+ 
+ check:
+ 	@$(MAKE) -C harness check
