@@ -1,11 +1,11 @@
---- libaio-0.3.111/harness/Makefile.orig	2018-04-15 21:10:25.695931798 +0200
-+++ libaio-0.3.111/harness/Makefile	2018-04-15 21:24:00.559255827 +0200
-@@ -6,7 +6,7 @@
+--- libaio-0.3.113/harness/Makefile.orig	2022-05-08 18:26:19.927644311 +0200
++++ libaio-0.3.113/harness/Makefile	2022-05-08 18:29:21.956658175 +0200
+@@ -6,7 +6,7 @@ PROGS:=$(PARTPROGS) $(EXTRAPROGS)
  HARNESS_SRCS:=main.c
  # io_queue.c
  
--CFLAGS+=-Wall -Werror -I../src -g -O2 -DPAGE_SIZE=$(shell getconf PAGESIZE)
-+CFLAGS+=-Wall -I../src -DPAGE_SIZE=$(shell getconf PAGESIZE)
+-CFLAGS+=-Wall -Werror -I../src -g -O2
++CFLAGS+=-Wall -I../src
  #-lpthread -lrt
  
- all: $(PROGS)
+ # gcc-11 does not like the test case in 3.t that

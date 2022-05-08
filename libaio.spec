@@ -5,12 +5,12 @@
 Summary:	Linux-native asynchronous I/O access library
 Summary(pl.UTF-8):	Biblioteka natywnego dla Linuksa asynchronicznego dostępu do wejścia/wyjścia
 Name:		libaio
-Version:	0.3.112
+Version:	0.3.113
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://releases.pagure.org/libaio/%{name}-%{version}.tar.gz
-# Source0-md5:	1ba264947d05bd8e0f9dc9a9ed80cf3e
+# Source0-md5:	7d5be185f20eeaae15e267419950aaf7
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-Werror.patch
 Patch2:		x32.patch
